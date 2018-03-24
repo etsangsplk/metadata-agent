@@ -30,14 +30,14 @@
 namespace google {
 
 // Configuration object.
-class MetadataAgentConfiguration;
+class Configuration;
 
 // Storage for the metadata mapping.
 class MetadataStore;
 
 class KubernetesReader {
  public:
-  KubernetesReader(const MetadataAgentConfiguration& config);
+  KubernetesReader(const Configuration& config);
   // A Kubernetes metadata query function.
   std::vector<MetadataUpdater::ResourceMetadata> MetadataQuery() const;
 
@@ -150,14 +150,13 @@ class KubernetesReader {
   // A memoized map from an encoded owner reference to the owner object.
   mutable std::map<std::string, json::value> owners_;
 
-  const MetadataAgentConfiguration& config_;
+  const Configuration& config_;
   Environment environment_;
 };
 
 class KubernetesUpdater : public PollingMetadataUpdater {
  public:
-  KubernetesUpdater(const MetadataAgentConfiguration& config,
-                    MetadataStore* store);
+  KubernetesUpdater(const Configuration& config, MetadataStore* store);
   ~KubernetesUpdater() {
     if (node_watch_thread_.joinable()) {
       node_watch_thread_.join();

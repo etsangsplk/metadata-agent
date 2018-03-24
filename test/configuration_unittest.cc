@@ -4,7 +4,7 @@
 
 namespace google {
 
-class MetadataAgentConfigurationTest : public ::testing::Test {
+class ConfigurationTest : public ::testing::Test {
  protected:
   void ParseConfiguration(const std::string& input) {
     std::stringstream stream(input);
@@ -45,19 +45,19 @@ class MetadataAgentConfigurationTest : public ::testing::Test {
     EXPECT_EQ("", config.InstanceZone());
   }
 
-  MetadataAgentConfiguration config;
+  Configuration config;
 };
 
-TEST_F(MetadataAgentConfigurationTest, NoConfig) {
+TEST_F(ConfigurationTest, NoConfig) {
   VerifyDefaultConfig();
 }
 
-TEST_F(MetadataAgentConfigurationTest, EmptyConfig) {
+TEST_F(ConfigurationTest, EmptyConfig) {
   ParseConfiguration("");
   VerifyDefaultConfig();
 }
 
-TEST_F(MetadataAgentConfigurationTest, PopulatedConfig) {
+TEST_F(ConfigurationTest, PopulatedConfig) {
   ParseConfiguration(
       "ProjectId: TestProjectId\n"
       "MetadataApiNumThreads: 13\n"
@@ -70,7 +70,7 @@ TEST_F(MetadataAgentConfigurationTest, PopulatedConfig) {
   EXPECT_EQ("foobar/foobaz", config.MetadataReporterUserAgent());
 }
 
-TEST_F(MetadataAgentConfigurationTest, CommentSkipped) {
+TEST_F(ConfigurationTest, CommentSkipped) {
   ParseConfiguration(
       "ProjectId: TestProjectId\n"
       "#MetadataApiNumThreads: 13\n"
@@ -79,7 +79,7 @@ TEST_F(MetadataAgentConfigurationTest, CommentSkipped) {
   EXPECT_EQ(3, config.MetadataApiNumThreads());
 }
 
-TEST_F(MetadataAgentConfigurationTest, BlankLine) {
+TEST_F(ConfigurationTest, BlankLine) {
   ParseConfiguration(
       "ProjectId: TestProjectId\n"
       "\n"

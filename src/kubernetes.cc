@@ -89,7 +89,7 @@ bool ReadServiceAccountSecret(
 
 }
 
-KubernetesReader::KubernetesReader(const MetadataAgentConfiguration& config)
+KubernetesReader::KubernetesReader(const Configuration& config)
     : config_(config), environment_(config) {}
 
 MetadataUpdater::ResourceMetadata KubernetesReader::GetNodeMetadata(
@@ -1160,7 +1160,7 @@ void KubernetesReader::WatchNodes(
   LOG(INFO) << "Watch thread (node) exiting";
 }
 
-KubernetesUpdater::KubernetesUpdater(const MetadataAgentConfiguration& config,
+KubernetesUpdater::KubernetesUpdater(const Configuration& config,
                                      MetadataStore* store)
     : reader_(config), PollingMetadataUpdater(
         config, store, "KubernetesUpdater",

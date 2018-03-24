@@ -26,8 +26,7 @@ MetadataStore::Metadata MetadataStore::Metadata::IGNORED() {
   return MetadataStore::Metadata();
 }
 
-MetadataStore::MetadataStore(const MetadataAgentConfiguration& config)
-    : config_(config) {}
+MetadataStore::MetadataStore(const Configuration& config) : config_(config) {}
 
 void MetadataStore::UpdateResource(const std::vector<std::string>& resource_ids,
                                    const MonitoredResource& resource) {

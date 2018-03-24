@@ -72,7 +72,7 @@ constexpr const char kDefaultInstanceId[] = "";
 constexpr const char kDefaultInstanceZone[] = "";
 }
 
-MetadataAgentConfiguration::MetadataAgentConfiguration()
+Configuration::Configuration()
     : project_id_(kDefaultProjectId),
       credentials_file_(kDefaultCredentialsFile),
       verbose_logging_(false),
@@ -112,7 +112,7 @@ MetadataAgentConfiguration::MetadataAgentConfiguration()
       instance_id_(kDefaultInstanceId),
       instance_zone_(kDefaultInstanceZone) {}
 
-int MetadataAgentConfiguration::ParseArguments(int ac, char** av) {
+int Configuration::ParseArguments(int ac, char** av) {
   std::string config_file;
   boost::program_options::options_description flags_desc;
   flags_desc.add_options()
@@ -158,14 +158,14 @@ int MetadataAgentConfiguration::ParseArguments(int ac, char** av) {
   }
 }
 
-void MetadataAgentConfiguration::ParseConfigFile(const std::string& filename) {
+void Configuration::ParseConfigFile(const std::string& filename) {
   if (filename.empty()) return;
 
   std::ifstream input(filename);
   ParseConfiguration(input);
 }
 
-void MetadataAgentConfiguration::ParseConfiguration(std::istream& input) {
+void Configuration::ParseConfiguration(std::istream& input) {
   YAML::Node config = YAML::Load(input);
   std::lock_guard<std::mutex> lock(mutex_);
   project_id_ =

@@ -21,9 +21,9 @@
 
 namespace google {
 
-class MetadataAgentConfiguration {
+class Configuration {
  public:
-  MetadataAgentConfiguration();
+  Configuration();
   // Parse the command line.
   // A zero return value means that parsing succeeded and the program should
   // proceed.  A positive return value means that parsing failed.  A negative
@@ -152,7 +152,7 @@ class MetadataAgentConfiguration {
   }
 
  private:
-  friend class MetadataAgentConfigurationTest;
+  friend class ConfigurationTest;
 
   void ParseConfigFile(const std::string& filename);
   void ParseConfiguration(std::istream& input);
